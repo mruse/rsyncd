@@ -9,7 +9,11 @@
 
     cat >> /etc/rsyncd.conf <<RSYNC
     # @start MrUse Rsyncd $(date +%F_%T)
-    # /usr/bin/rsync --daemon --config=/etc/rsyncd.conf
+    # @daemon:  /usr/bin/rsync --daemon --config=/etc/rsyncd.conf
+    # @demo:
+    #   rsync -arogvzP --delete --exclude=filter/* /path/to/webroot/* 192.168.0.1::mruse
+    #   rsync -vzrtopg --delete --exclude /path/from/* /path/to/
+    #   rsync -arogvzP --delete --exclude=data/* /data/www/cmstop/* 192.168.0.1:/path/to/webroot
     
     ##########
     # Global #
