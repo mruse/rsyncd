@@ -7,40 +7,40 @@
 
 ### 创建 rsyncd 配置文件
 
-cat >> /etc/rsyncd.conf <<RSYNC
-# @start MrUse Rsyncd $(date +%F_%T)
-# /usr/bin/rsync --daemon --config=/etc/rsyncd.conf
-
-##########
-# Global #
-##########
-uid = root
-gid = root
-port = 873
-lock file = /var/run/rsyncd.lock
-pid file = /var/run/rsyncd.pid
-log file = /var/log/rsyncd.log
-max connections = 36000
-#syslog facility = local5
-
-###########
-# Modules #
-###########
-[mruse]
-path = /path/to/webroot
-comment = this is comment
-list = false
-read only = no
-write only = yes
-use chroot = no
-ignore errors = yes
-hosts allow = 192.168.0.1,192.168.0.2
-hosts deny = *
-#auth users = 
-#secrets file =
-
-# @end MrUse Rsyncd $(date +%F_%T)
-RSYNC
+    cat >> /etc/rsyncd.conf <<RSYNC
+    # @start MrUse Rsyncd $(date +%F_%T)
+    # /usr/bin/rsync --daemon --config=/etc/rsyncd.conf
+    
+    ##########
+    # Global #
+    ##########
+    uid = root
+    gid = root
+    port = 873
+    lock file = /var/run/rsyncd.lock
+    pid file = /var/run/rsyncd.pid
+    log file = /var/log/rsyncd.log
+    max connections = 36000
+    #syslog facility = local5
+    
+    ###########
+    # Modules #
+    ###########
+    [mruse]
+    path = /path/to/webroot
+    comment = this is comment
+    list = false
+    read only = no
+    write only = yes
+    use chroot = no
+    ignore errors = yes
+    hosts allow = 192.168.0.1,192.168.0.2
+    hosts deny = *
+    #auth users = 
+    #secrets file =
+    
+    # @end MrUse Rsyncd $(date +%F_%T)
+    RSYNC
 
 
 ### 修改配置文件
