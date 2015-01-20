@@ -1,0 +1,76 @@
+#!/bin/bash
+# @create: 2014.12.22
+# @update: 2015.01.09
+# @by: me@mruse.cn
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/locla/sbin
+export PATH=$PATH
+export red='\e[1;31m';blue='\e[1;34m';green='\e[1;32m';eol='\e[0m'
+
+rsync_BIN="/usr/bin/rsync"
+rsync_PID="/var/run/rsyncd.pid"
+rsync_CONF="/etc/rsyncd.conf"
+
+rsync_opts="--daemon --config=$rsync_CONF"
+
+running=0
+stopped=1
+error=2
+
+rsyncd_help()
+{
+    echo -e "${blue}Usage: $(basename $0) {start|stop|restart|status}${eol}"
+}
+rsyncd_status()
+{
+    pid=$(ps aux|grep -v grep|grep "rsync --daemon"|head -1|awk '{print int($2)}')
+
+    if [ "$pid" != "" ];then
+        [ "$1" == "" ] && echo -e "${green}Status: $(basename $0) is running...${eol}" 
+        return $running
+    else
+        [ "$1" == "" ] && echo -e "${green}Status: $(basename $0) is stopped!${eol}"
+        return $stopped
+    fi
+}
+rsyncd_start()
+{
+    rsyncd_status inline
+    if [ $? -eq 0 ]; then
+        echo -e "${red}Start Failed: $(basename $0) is already running...${eol}"
+        exit 1
+    else
+        [ -f "$rsync_PID" ] && rm -rf $rsync_PID
+        $rsync_BIN $rsync_opts
+        echo -e "${green}Start sucess!${eol}"
+    fi
+}
+rsyncd_stop()
+{
+    rsyncd_status inline
+    if [ $? -eq 1 ]; then
+        echo -e "${red}Stop Failed:  $(basename $0) is not running!${eol}"
+        exit 1
+    else
+        ps aux|grep -v grep|grep "rsync --daemon"|awk '{print $2}'|xargs kill -9
+        echo -e "${green}Stoped sucess!${eol}"
+    fi
+    [ -f "$rsync_PID" ] && rm -rf $rsync_PID
+}
+rsyncd_restart()
+{
+    rsyncd_status inline
+    STATUS=$?
+    [ $STATUS -eq 0 ] && rsyncd_stop
+    [ $STATUS -eq 1 ] && echo -e "${red}Stop Failed:  $(basename $0) is not running!${eol}"
+    rsyncd_start
+}
+case "$1" in
+    status|start|stop|restart)
+        rsyncd_$1
+    ;;
+    *)
+        rsyncd_help
+    ;;
+esac
+# @end|/usr/bin/rsyncd
