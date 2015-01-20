@@ -1,0 +1,4 @@
+wget http://me.mruse.cn:8080/Server.soft/sersync/sersync2.5_64bit_binary_stable_final.tar.gz -P /usr/local/src/
+tar xvf /usr/local/src/sersync2.5_64bit_binary_stable_final.tar.gz -C /usr/local/
+mv /usr/local/GNU-Linux-x86/ /usr/local/sersync2
+
