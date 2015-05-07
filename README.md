@@ -13,7 +13,7 @@
     # @demo:
     #   rsync -arogvzP --delete --exclude=filter/* /path/to/webroot/* 192.168.0.1::mruse
     #   rsync -vzrtopg --delete --exclude /path/from/* /path/to/
-    #   rsync -arogvzP --delete --exclude=data/* /data/www/cmstop/* 192.168.0.1:/path/to/webroot
+    #   rsync -arogvzP --delete --exclude=data/* /path/to/webroot/* 192.168.0.1:/path/to/webroot
     
     ##########
     # Global #
