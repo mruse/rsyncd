@@ -99,8 +99,8 @@
     rsync -arogvzP --delete --exclude=data/* /data/www/cmstop/* 192.168.0.1:/path/to/webroot
 
 ### 创建启动脚本
-    vi /usr/bin/rsyncd 粘贴启动脚本内容
-    chmod + /usr/bin/rsyncd
+    wget https://raw.githubusercontent.com/mruse/rsyncd/master/rsyncd -P /etc/init.d/
+    chmod + /etc/init.d/rsyncd
 
 ### 测试启动脚本
-    /usr/bin/rsyncd {start|stop|restart|status}
+    /etc/init.d/rsyncd {start|stop|restart|status}
