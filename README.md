@@ -51,6 +51,14 @@
     模块名称: [mruse] 
     同步路径: path = /path/to/webroot 
     允许地址: hosts allow = 192.168.0.1,192.168.0.2
+    
+    rsyncd_mod="webroot"
+    rsyncd_path="/path/to/webroot"
+    rsyncd_allows="192.168.2.2"
+    
+    sed -i 's#mruse#'$rsyncd_mod'#g' /etc/rsyncd.conf
+    sed -i 's#/path/to/webroot#'$rsyncd_path'#g' /etc/rsyncd.conf
+    sed -i 's#192.168.0.1,192.168.0.2#'$rsyncd_allows'#g' /etc/rsyncd.conf
 
 ### 启动rsync守护进程，加入开机启动
     /usr/bin/rsync --daemon --config=/etc/rsyncd.conf
