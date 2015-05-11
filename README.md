@@ -78,8 +78,11 @@
 
 ### iptables开通873端口
     iptables --line-number -n -L
-    iptables -I INPUT 4 -p tcp -m state --state NEW -m tcp -s 192.168.0.1 --dport 873 -j ACCEPT
     iptables -I INPUT 4 -p tcp -m state --state NEW -m tcp -s 192.168.0.2 --dport 873 -j ACCEPT
+    
+    line_number=$(iptables -n -L --line-number |grep ':22\|:80'|awk '{print $1}'| head -1)
+    iptables -I INPUT $line_number -p tcp -m state --state NEW -m tcp -s $rsyncd_allows --dport 873 -j ACCEPT
+    
     /etc/init.d/iptables save
 
 ### 检查监听状态及iptables端口是否开启
