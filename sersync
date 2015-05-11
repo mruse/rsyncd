@@ -4,10 +4,12 @@
 # @create: 2015.5.11
 # @update: 2015.5.11
 
-# ######################################################## 
-# kill: 
-# ps aux | grep sersync | awk '{print $2}' | xargs kill -9
-# ########################################################
+# ############################################################################
+# start:
+#   /usr/local/sersync2/sersync2 -n 4 -r -d -o /usr/local/sersync2/confxml.xml
+# stop(kill): 
+#   ps aux | grep sersync | awk '{print $2}' | xargs kill -9
+# ############################################################################
 
 # Define
 htdocs="/path/to/webroot"
