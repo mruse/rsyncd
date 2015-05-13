@@ -30,7 +30,6 @@ function status
     is_running=$?
     [ $is_running -eq 1 -a "$1" == "" ] && echo -e "\nsesync is not running...\n"
     [ $is_running -eq 0 -a "$1" == "" ] && echo -e "\nsesync is running...\n"
-    return $is_running
 }
 
 function start
@@ -53,7 +52,7 @@ function restart
 {
     status
     [ $is_running -eq 0 ] && stop $0
-    start $0
+    start
 }
 
 $1
