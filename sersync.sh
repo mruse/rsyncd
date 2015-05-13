@@ -39,3 +39,7 @@ rm -rf $htdocs/test/222
 
 ## 启动sersync监控推送，加入开机启动
 grep sersync /etc/rc.local||echo '/usr/local/sersync2/sersync2 -n 4 -r -d -o /usr/local/sersync2/confxml.xml' >> /etc/rc.local
+
+## 创建启动脚本
+wget https://raw.githubusercontent.com/mruse/rsyncd/master/sersync -P /etc/init.d/
+chmod +x /etc/init.d/sersync
