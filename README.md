@@ -78,18 +78,15 @@
 
 ### iptables开通873端口
 
-* 手动修改iptables配置文件：    
-
+    # 手动修改：    
     iptables --line-number -n -L
-    iptables -I INPUT 4 -p tcp -m state --state NEW -m tcp -s 192.168.0.2 --dport 873 -j ACCEPT
-* 直接执行:     
-
+    iptables -A INPUT 4 -p tcp -m state --state NEW -m tcp -s 192.168.0.2 --dport 873 -j ACCEPT
+    # 直接执行:     
     line_number=$(iptables -n -L --line-number |grep ':22\|:80'|awk '{print $1}'| head -1)
     echo $line_number
     iptables -I INPUT $line_number -p tcp -m state --state NEW -m tcp -s $rsyncd_allows --dport 873 -j ACCEPT
     
     /etc/init.d/iptables save
-`并未重启，请确认防火墙开启了sshd端口，避免重启后服务器不能登陆`
 
 ### 检查监听状态及iptables端口是否开启
     netstat -antp | grep LISTEN|grep 873
