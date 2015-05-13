@@ -32,7 +32,7 @@
     ###########
     [mruse]
     path = /path/to/webroot
-    comment = this is comment
+    comment = Comments for MrUse Project
     list = false
     read only = no
     write only = yes
