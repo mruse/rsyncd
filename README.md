@@ -78,10 +78,12 @@
 
 ### iptables开通873端口
 
-* 手动修改iptables配置文件：
+* 手动修改iptables配置文件：    
+
     iptables --line-number -n -L
     iptables -I INPUT 4 -p tcp -m state --state NEW -m tcp -s 192.168.0.2 --dport 873 -j ACCEPT
-* 直接执行:
+* 直接执行:     
+
     line_number=$(iptables -n -L --line-number |grep ':22\|:80'|awk '{print $1}'| head -1)
     echo $line_number
     iptables -I INPUT $line_number -p tcp -m state --state NEW -m tcp -s $rsyncd_allows --dport 873 -j ACCEPT
