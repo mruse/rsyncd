@@ -81,6 +81,7 @@
     # 手动修改：    
     iptables --line-number -n -L
     iptables -A INPUT 4 -p tcp -m state --state NEW -m tcp -s 192.168.0.2 --dport 873 -j ACCEPT
+
     # 直接执行:     
     line_number=$(iptables -n -L --line-number |grep ':22\|:80'|awk '{print $1}'| head -1)
     echo $line_number
