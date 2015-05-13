@@ -2,41 +2,58 @@
 
 # @author: me@mruse.cn
 # @create: 2015.5.11
-# @update: 2015.5.11
+# @update: 2015.5.13
 
 # ############################################################################
-# /etc/init.d/sersync {start|stop|restart}
-#
+# /etc/init.d/sersync
+#     {start|stop|restart}
 # start:
-#   /usr/local/sersync2/sersync2 -n 4 -r -d -o /usr/local/sersync2/confxml.xml
+#     /usr/local/sersync2/sersync2 -n 4 -r -d -o /usr/local/sersync2/confxml.xml
 # stop(kill): 
-#   ps aux | grep sersync | awk '{print $2}' | xargs kill -9
+#     ps aux | grep sersync | awk '{print $2}' | xargs kill -9
 # ############################################################################
 
 # Define 
-SERSYNC_PATH="/usr/local/sersync2/"
+SERSYNC_PATH="/usr/local/sersync2"
 SERSYNC_BIN="$SERSYNC_PATH/sersync2"
 SERSYNC_CONF="$SERSYNC_PATH/confxml.xml"
-is_running="ps aux | grep sersync | grep -v grep"
+is_running=0 # 0 running; 1 not running
 
-start
+function help
 {
-  [ "is_running" != "" ] && echo -e "\"Sersync is already running...\""
-  [ "is_running" != "" ] && exit 1
-  
-  $SERSYNC_BIN -n 4 -r -d -o $SERSYNC_CONF
+    echo -e "\n$0 {start|stop|restart|status} \n"
 }
 
-stop
+function status
 {
-  [ "is_running" != "" ] || echo -e "Sersync is not running..."
-  [ "is_running" != "" ] || exit 1
-  
-  ps aux | grep -v grep | grep sersync | awk '{print $2}' | xargs kill -9
+    ps aux | grep sersync | grep -v grep | grep -v $0
+    is_running=$?
+    [ $is_running -eq 1 -a "$1" == "" ] && echo -e "\nsesync is not running...\n"
+    [ $is_running -eq 0 -a "$1" == "" ] && echo -e "\nsesync is running...\n"
+    return $is_running
 }
 
-restart
+function start
 {
-  stop
-  start
+    [ "$1" == "" ] && status
+    [ $is_running -eq 0 ] && exit 1
+    $SERSYNC_BIN -n 4 -r -d -o $SERSYNC_CONF
+    [ $? -eq 0 ] && echo -e "\n$SERSYNC_BIN start ok!\n"
 }
+
+function stop
+{
+    [ "$1" == "" ] && status
+    [ $is_running -ne 0 ] && exit 1
+    ps aux | grep -v grep | grep -v $0 | grep sersync | awk '{print $2}' | xargs kill -9
+    [ $? -eq 0 ] && echo -e "\n$SERSYNC_BIN killed ok!\n"
+}
+
+function restart
+{
+    status
+    [ $is_running -eq 0 ] && stop $0
+    start $0
+}
+
+$1
