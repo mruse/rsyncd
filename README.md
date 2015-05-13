@@ -104,3 +104,5 @@
 
 ### 测试启动脚本
     /etc/init.d/rsyncd {start|stop|restart|status}
+
+# Sersync @todo
