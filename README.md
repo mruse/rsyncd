@@ -77,26 +77,30 @@
     LOGROTATE
 
 ### iptables开通873端口
+
+* 手动修改iptables配置文件：
     iptables --line-number -n -L
     iptables -I INPUT 4 -p tcp -m state --state NEW -m tcp -s 192.168.0.2 --dport 873 -j ACCEPT
-    
+* 直接执行:
     line_number=$(iptables -n -L --line-number |grep ':22\|:80'|awk '{print $1}'| head -1)
+    echo $line_number
     iptables -I INPUT $line_number -p tcp -m state --state NEW -m tcp -s $rsyncd_allows --dport 873 -j ACCEPT
     
     /etc/init.d/iptables save
+`并未重启，请确认防火墙开启了sshd端口，避免重启后服务器不能登陆`
 
 ### 检查监听状态及iptables端口是否开启
     netstat -antp | grep LISTEN|grep 873
     iptables --line-number -n -L|grep 873
 
 ### 手动同步测试
-    rsync -arogvzP --delete --exclude=filter/* /path/to/webroot/* 192.168.0.1::mruse
+    rsync -arogvzP --delete --exclude=exclude_dir/* /path/to/webroot/* 192.168.0.1::mruse
 
 ### 本地目录同步
     rsync -vzrtopg --delete --exclude /path/from/* /path/to/
 
 ### 通过ssh拷贝（不依赖rsyncd守护进程）
-    rsync -arogvzP --delete --exclude=data/* /data/www/cmstop/* 192.168.0.1:/path/to/webroot
+    rsync -arogvzP --delete --exclude=exclude_dir/* /data/www/cmstop/* 192.168.0.1:/path/to/webroot
 
 ### 创建启动脚本
     wget https://raw.githubusercontent.com/mruse/rsyncd/master/rsyncd -P /etc/init.d/
