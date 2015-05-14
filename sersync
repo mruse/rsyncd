@@ -5,6 +5,8 @@
 # @update: 2015.5.13
 
 # ############################################################################
+# rsync manually
+#   rsync -arogvzP --delete /path/to/webroot/* 192.168.0.2::mruse
 # /etc/init.d/sersync
 #     {start|stop|restart}
 # start:
