@@ -105,7 +105,7 @@
 
 ### 创建启动脚本
     wget https://raw.githubusercontent.com/mruse/rsyncd/master/rsyncd -P /etc/init.d/
-    chmod + /etc/init.d/rsyncd
+    chmod +x /etc/init.d/rsyncd
 
 ### 测试启动脚本
     /etc/init.d/rsyncd {start|stop|restart|status}
