@@ -22,7 +22,7 @@ cat >> /etc/rsyncd.conf <<RSYNC
 # @daemon:  /usr/bin/rsync --daemon --config=/etc/rsyncd.conf
 # @demo:
 #   rsync -arogvzP --delete --exclude=filter/* /path/to/webroot/* 192.168.0.1::mruse
-#   rsync -vzrtopg --delete --exclude /path/from/* /path/to/
+#   rsync -vzrtopg --delete --exclude /path/to/webroot/* /path/to/ahother/webroot/
 #   rsync -arogvzP --delete --exclude=data/* /path/to/webroot/* 192.168.0.1:/path/to/webroot
 
 ##########
