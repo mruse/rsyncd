@@ -59,7 +59,7 @@ RSYNC
 # Modify config
 sed -i 's#mruse#'$rsyncd_mod'#g' /etc/rsyncd.conf
 sed -i 's#/path/to/webroot#'$rsyncd_path'#g' /etc/rsyncd.conf
-sed -i 's#Comments for MrUse Project#'$rsyncd_comment'#g' /etc/rsyncd.conf
+sed -i 's#^comment.*#comment = '$rsyncd_comment'#g' /etc/rsyncd.conf
 sed -i 's#192.168.0.1,192.168.0.2#'$rsyncd_allows'#g' /etc/rsyncd.conf
 
 # Start & Bootup
