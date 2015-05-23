@@ -87,4 +87,4 @@ iptables -I INPUT $line_number -p tcp -m state --state NEW -m tcp -s $rsyncd_all
 
 # Shell for {start|stop}
 wget https://raw.githubusercontent.com/mruse/rsyncd/master/rsyncd -P /etc/init.d/
-chmod + /etc/init.d/rsyncd
+chmod +x /etc/init.d/rsyncd
