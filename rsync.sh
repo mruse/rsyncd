@@ -18,7 +18,7 @@ yum --noplugins --nogpgcheck -y install rsync
 
 # Create /etc/rsyncd.conf
 cat >> /etc/rsyncd.conf <<RSYNC
-# @start MrUse Rsyncd $(date +%F_%T)
+# @start Rsyncd by me@mruse.cn $(date +%F_%T)
 # @daemon:  /usr/bin/rsync --daemon --config=/etc/rsyncd.conf
 # @demo:
 #   rsync -arogvzP --delete --exclude=filter/* /path/to/webroot/* 192.168.0.1::mruse
@@ -53,7 +53,7 @@ hosts deny = *
 #auth users = 
 #secrets file =
 
-# @end MrUse Rsyncd $(date +%F_%T)
+# @end Rsyncd by me@mruse.cn $(date +%F_%T)
 RSYNC
 
 # Modify config
