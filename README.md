@@ -75,6 +75,7 @@
             create 0600 root root
     }
     LOGROTATE
+    /etc/init.d/rsyslog restart
 
 ### iptables开通873端口
 
